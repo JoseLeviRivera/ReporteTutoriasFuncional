@@ -22,6 +22,15 @@ public class Profesor {
         this.adscripcion = adscripcion;
     }
 
+    public Profesor(String nombre, String apellidos, String correo, String anioIngreso, String gradoAcademico, String adscripcion) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.correo = correo;
+        this.anioIngreso = anioIngreso;
+        this.gradoAcademico = gradoAcademico;
+        this.adscripcion = adscripcion;
+    }
+
     public String getId() {
         return id;
     }

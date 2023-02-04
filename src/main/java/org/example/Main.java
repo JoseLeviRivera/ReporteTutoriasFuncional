@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.Model.Profesor;
+import org.example.Servicio.ProfesorImpl;
 import org.example.Util.DatabaseConection.ConexionDB;
 import org.example.Util.LoadProperties.LoadProperties;
 
@@ -11,6 +13,12 @@ public class Main {
         if(connection != null){
             System.out.println("Se establecio la conexion a la base de datos");
         }
+
+        ProfesorImpl profesor = new ProfesorImpl();
+        Profesor p1 = new Profesor();
+        profesor.crear(new Profesor("Jose Luis","Rivera","correo@gmail.com", "2022","Maestria", "Docente"));
+        profesor.crear(p1);
+
     }
     /*
     public static void insertData(String firstName, String lastName) {
