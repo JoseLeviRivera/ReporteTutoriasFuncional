@@ -1,17 +1,26 @@
 package org.example.Servicio;
 
 import org.example.Model.Alumno;
+import org.example.Util.DatabaseConection.ConexionDB;
 import org.example.interfaces.CrudRepositorioAlumno;
 import org.example.interfaces.OrderSuperior;
 
+import java.beans.Statement;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
 public class AlumnoImpl implements CrudRepositorioAlumno, OrderSuperior {
+    private Statement statement = null;
+
 
     public AlumnoImpl(){
-
+        try {
+            statement = (Statement) ConexionDB.getInstance().getConnection().createStatement();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -26,7 +35,11 @@ public class AlumnoImpl implements CrudRepositorioAlumno, OrderSuperior {
 
     @Override
     public void crear(Alumno t) {
-
+        /*
+        String sql = "INSERT INTO alumno (first_name, last_name) " +
+                "VALUES ('" + t + "', '" + lastName + "')";
+        statement.executeUpdate(sql);
+         */
     }
 
     @Override
