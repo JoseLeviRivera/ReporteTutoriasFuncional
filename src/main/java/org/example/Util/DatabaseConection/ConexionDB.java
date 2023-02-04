@@ -1,10 +1,8 @@
 package org.example.Util.DatabaseConection;
 
 import org.example.Util.LoadProperties.LoadProperties;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class ConexionDB {
 
@@ -20,17 +18,21 @@ public class ConexionDB {
     public boolean createConexion(){
         //carga las propiedades local del sistema
         LoadProperties.loadPropertiesLocal();
-        //carga los parametros para establecer la conexion a la base de datos
-        String driver = System.getProperty("config.database.driver").toString().trim();
-        String url = System.getProperty("config.database.url").toString().trim();
-        String database = System.getProperty("config.database.db").toString().trim();
-        String user = System.getProperty("config.database.user").toString().trim();
-        String password = System.getProperty("config.database.password").toString().toString().trim();
+        //Se inicializan los parametros para establecer la base de datos
+        StringBuilder driver = new StringBuilder(System.getProperty("config.database.driver"));
+        StringBuilder url = new StringBuilder(System.getProperty("config.database.url"));
+        StringBuilder database = new StringBuilder(System.getProperty("config.database.db"));
+        StringBuilder user = new StringBuilder(System.getProperty("config.database.user"));
+        StringBuilder password = new StringBuilder(System.getProperty("config.database.password"));
+
         try {
-            Class.forName(driver);
-            conexion = DriverManager.getConnection(url.concat(database), user, password);
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            Class.forName(driver.toString());
+            conexion = DriverManager.getConnection(
+                    url.append(database.toString()).toString(),
+                    user.toString(), password.toString());
+        } catch (Exception e) {
+            System.out.println("Ocurrio un problema a la hora de conectar con la base de datos");
+            System.out.println("El mensaje es el siguiente: " + e.getMessage());
         }
         return true;
     }

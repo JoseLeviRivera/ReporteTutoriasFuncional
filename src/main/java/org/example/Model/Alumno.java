@@ -1,7 +1,7 @@
 package org.example.Model;
 
 public class Alumno {
-    private String id;
+    private Integer id;
     private String matricula;
     private String nombre;
     private String apellidos;
@@ -15,7 +15,19 @@ public class Alumno {
     public Alumno() {
     }
 
-    public Alumno(String id, String matricula, String nombre, String apellidos, String correo, String telefonoCasa, String telefonoCelular, String fechaNacimiento, String anioIngreso, String carrera) {
+    public Alumno(String matricula, String nombre, String apellidos, String correo, String telefonoCasa, String telefonoCelular, String fechaNacimiento, String anioIngreso, String carrera) {
+        this.matricula = matricula;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.correo = correo;
+        this.telefonoCasa = telefonoCasa;
+        this.telefonoCelular = telefonoCelular;
+        this.fechaNacimiento = fechaNacimiento;
+        this.anioIngreso = anioIngreso;
+        this.carrera = carrera;
+    }
+
+    public Alumno(Integer id, String matricula, String nombre, String apellidos, String correo, String telefonoCasa, String telefonoCelular, String fechaNacimiento, String anioIngreso, String carrera) {
         this.id = id;
         this.matricula = matricula;
         this.nombre = nombre;
@@ -28,11 +40,11 @@ public class Alumno {
         this.carrera = carrera;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -107,21 +119,4 @@ public class Alumno {
     public void setCarrera(String carrera) {
         this.carrera = carrera;
     }
-
-    @Override
-    public String toString() {
-        return "Alumno{" +
-                "id='" + id + '\'' +
-                ", matricula='" + matricula + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", apellidos='" + apellidos + '\'' +
-                ", correo='" + correo + '\'' +
-                ", telefonoCasa='" + telefonoCasa + '\'' +
-                ", telefonoCelular='" + telefonoCelular + '\'' +
-                ", fechaNacimiento='" + fechaNacimiento + '\'' +
-                ", anioIngreso='" + anioIngreso + '\'' +
-                ", carrera='" + carrera + '\'' +
-                '}';
-    }
-
 }
