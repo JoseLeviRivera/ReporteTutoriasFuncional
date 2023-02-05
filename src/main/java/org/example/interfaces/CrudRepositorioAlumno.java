@@ -9,5 +9,5 @@ public interface CrudRepositorioAlumno {
     Alumno porId(Integer id);
     void crear(Alumno t);
     void editar(Alumno t);
-    boolean eliminar(Integer id);
+    boolean eliminar(String id);
 }
