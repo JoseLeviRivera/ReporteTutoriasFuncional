@@ -6,6 +6,8 @@ import org.example.interfaces.CrudRepositorioAlumno;
 import org.example.interfaces.OrderSuperior;
 
 import java.beans.Statement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,14 +15,16 @@ import java.util.stream.Collectors;
 
 public class AlumnoImpl implements CrudRepositorioAlumno, OrderSuperior {
     private Statement statement = null;
+    private Connection connection = null;
 
-
-    public AlumnoImpl(){
-        try {
+    public AlumnoImpl(Connection _dbCon){
+        this.connection = _dbCon;
+        //this.statement = _statement;
+        /*try {
             statement = (Statement) ConexionDB.getInstance().getConnection().createStatement();
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
+        }*/
     }
 
     @Override
@@ -35,11 +39,31 @@ public class AlumnoImpl implements CrudRepositorioAlumno, OrderSuperior {
 
     @Override
     public void crear(Alumno t) {
-        /*
-        String sql = "INSERT INTO alumno (first_name, last_name) " +
-                "VALUES ('" + t + "', '" + lastName + "')";
-        statement.executeUpdate(sql);
-         */
+        PreparedStatement statement = null;
+        try {
+            String sql = "INSERT INTO persons (nombre, apellido) " +
+                    "VALUES (?, ?)";
+            statement = this.connection.prepareStatement(sql);
+            statement.setString(1, t.getNombre());
+            statement.setString(2, t.getApellidos());
+            statement.executeUpdate();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null)
+                    statement.close();
+            } catch (SQLException se2) {
+            }
+            //closeConnection(connection);
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     @Override
@@ -48,7 +72,30 @@ public class AlumnoImpl implements CrudRepositorioAlumno, OrderSuperior {
     }
 
     @Override
-    public boolean eliminar(Integer id) {
+    public boolean eliminar(String name) {
+        PreparedStatement statement = null;
+        try {
+            String sql = "DELETE FROM persons WHERE nombre = ?";
+            statement = this.connection.prepareStatement(sql);
+            statement.setString(1, name);
+            statement.executeUpdate();
+            System.out.println("Registro eliminado exitosamente");
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null)
+                    statement.close();
+            } catch (SQLException se2) {
+            }
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
         return false;
     }
 

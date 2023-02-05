@@ -1,9 +1,15 @@
 package org.example;
 
+import org.example.Model.Alumno;
+import org.example.Servicio.AlumnoImpl;
 import org.example.Util.DatabaseConection.ConexionDB;
 import org.example.Util.LoadProperties.LoadProperties;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import static java.sql.DriverManager.getConnection;
 
 public class Main {
     public static void main(String[] args) {
