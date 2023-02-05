@@ -1,7 +1,11 @@
+-- DROP DATABASE db_tutorados;
+
+CREATE DATABASE IF NOT EXISTS db_tutorados;
+
 USE db_tutorados;
 
 CREATE TABLE profesores (
-  id INT AUTO_INCREMENT PRIMARY KEY,
+  id VARCHAR(255) PRIMARY KEY,
   nombre VARCHAR(255),
   apellidos VARCHAR(255),
   correo VARCHAR(255),
@@ -10,8 +14,13 @@ CREATE TABLE profesores (
   adscripcion VARCHAR(255)
 );
 
-CREATE  TABLE alumnos (
-	id INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE Tutores (
+    id VARCHAR(255) PRIMARY KEY,
+    password VARCHAR(255)
+);
+
+CREATE TABLE alumnos (
+	id VARCHAR(255) PRIMARY KEY,
 	nombre VARCHAR(60),
 	matricula VARCHAR(60),
 	apellidos VARCHAR(50),
@@ -21,8 +30,8 @@ CREATE  TABLE alumnos (
   	fechaNacimiento VARCHAR(50),
   	anioIngreso VARCHAR(50),
   	carrera VARCHAR(50),
-	profesor_id INT,
-	FOREIGN KEY (profesor_id) REFERENCES profesores(id)
+	tutor_id VARCHAR(255),
+	FOREIGN KEY (tutor_id) REFERENCES Tutores(id)
 );
 
 CREATE TABLE tutorias (
@@ -31,6 +40,6 @@ CREATE TABLE tutorias (
   hora VARCHAR(255),
   duracion VARCHAR(255),
   comentarios VARCHAR(255),
-  alumno_id INT,
+  alumno_id VARCHAR(255),
   FOREIGN KEY (alumno_id) REFERENCES alumnos(id)
 );
