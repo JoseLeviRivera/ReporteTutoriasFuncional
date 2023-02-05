@@ -1,7 +1,6 @@
 package org.example.Servicio;
 
 import org.example.Model.Alumno;
-import org.example.Util.DatabaseConection.ConexionDB;
 import org.example.interfaces.CrudRepositorioAlumno;
 import org.example.interfaces.OrderSuperior;
 
@@ -10,7 +9,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 public class AlumnoImpl implements CrudRepositorioAlumno, OrderSuperior {
@@ -19,12 +17,6 @@ public class AlumnoImpl implements CrudRepositorioAlumno, OrderSuperior {
 
     public AlumnoImpl(Connection _dbCon){
         this.connection = _dbCon;
-        //this.statement = _statement;
-        /*try {
-            statement = (Statement) ConexionDB.getInstance().getConnection().createStatement();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }*/
     }
 
     @Override
@@ -65,12 +57,10 @@ public class AlumnoImpl implements CrudRepositorioAlumno, OrderSuperior {
             }
         }
     }
-
     @Override
     public void editar(Alumno t) {
 
     }
-
     @Override
     public boolean eliminar(String name) {
         PreparedStatement statement = null;
@@ -100,12 +90,12 @@ public class AlumnoImpl implements CrudRepositorioAlumno, OrderSuperior {
     }
 
     @Override
-    public void printLists(List<Object> list) {
-        list.forEach(System.out::println);
+    public void imprimirLista() {
+        listar().forEach(System.out::println);
     }
 
     @Override
-    public long count(List<Object> a) {
-        return a.stream().count();
+    public long contar() {
+        return listar().stream().count();
     }
 }

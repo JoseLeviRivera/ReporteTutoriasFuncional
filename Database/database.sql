@@ -25,7 +25,6 @@ CREATE  TABLE alumnos (
 	FOREIGN KEY (profesor_id) REFERENCES profesores(id)
 );
 
-
 CREATE TABLE tutorias (
   id INT AUTO_INCREMENT PRIMARY KEY,
   fecha VARCHAR(255),

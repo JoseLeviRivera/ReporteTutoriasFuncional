@@ -5,8 +5,8 @@ import java.util.List;
 
 public interface CrudRepositorioProfesor {
     List<Profesor> listar();
-    Profesor porId(Integer id);
+    Profesor porId(String id);
     void crear(Profesor t);
     void editar(Profesor t);
-    boolean eliminar(Integer id);
+    boolean eliminar(String id);
 }
