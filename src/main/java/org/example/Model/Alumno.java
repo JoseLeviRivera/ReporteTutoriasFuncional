@@ -1,7 +1,7 @@
 package org.example.Model;
 
 public class Alumno {
-    private Integer id;
+    private String id;
     private String matricula;
     private String nombre;
     private String apellidos;
@@ -11,6 +11,7 @@ public class Alumno {
     private String fechaNacimiento;
     private String anioIngreso;
     private String carrera;
+    private String tutorId;
 
     public Alumno() {}
 
@@ -26,7 +27,7 @@ public class Alumno {
         this.carrera = carrera;
     }
 
-    public Alumno(Integer id, String matricula, String nombre, String apellidos, String correo, String telefonoCasa, String telefonoCelular, String fechaNacimiento, String anioIngreso, String carrera) {
+    public Alumno(String id, String matricula, String nombre, String apellidos, String correo, String telefonoCasa, String telefonoCelular, String fechaNacimiento, String anioIngreso, String carrera, String tutorId) {
         this.id = id;
         this.matricula = matricula;
         this.nombre = nombre;
@@ -37,13 +38,14 @@ public class Alumno {
         this.fechaNacimiento = fechaNacimiento;
         this.anioIngreso = anioIngreso;
         this.carrera = carrera;
+        this.tutorId = tutorId;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -117,5 +119,13 @@ public class Alumno {
 
     public void setCarrera(String carrera) {
         this.carrera = carrera;
+    }
+
+    public String getTutorId() {
+        return tutorId;
+    }
+
+    public void setTutorId(String tutorId) {
+        this.tutorId = tutorId;
     }
 }

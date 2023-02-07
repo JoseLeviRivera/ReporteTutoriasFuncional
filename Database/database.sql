@@ -43,3 +43,7 @@ CREATE TABLE tutorias (
   alumno_id VARCHAR(255),
   FOREIGN KEY (alumno_id) REFERENCES alumnos(id)
 );
+
+ALTER TABLE alumnos
+RENAME COLUMN nombre to matricula,
+RENAME COLUMN matricula to nombre;
