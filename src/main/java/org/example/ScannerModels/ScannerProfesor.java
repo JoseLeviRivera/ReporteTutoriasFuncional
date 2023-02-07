@@ -26,5 +26,6 @@ public class ScannerProfesor {
         ProfesorImpl impl = new ProfesorImpl();
         impl.crear(new Profesor(id,nombre, apellidos,correo, anio, grado, adsc));
         impl.imprimirLista();
+        System.out.println();
     }
 }

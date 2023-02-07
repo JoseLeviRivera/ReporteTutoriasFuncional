@@ -13,8 +13,7 @@ public class Alumno {
     private String carrera;
     private String tutorId;
 
-    public Alumno() {
-    }
+    public Alumno() {}
 
     public Alumno(String matricula, String nombre, String apellidos, String correo, String telefonoCasa, String telefonoCelular, String fechaNacimiento, String anioIngreso, String carrera) {
         this.matricula = matricula;

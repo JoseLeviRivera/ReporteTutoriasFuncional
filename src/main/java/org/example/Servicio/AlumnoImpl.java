@@ -1,11 +1,9 @@
 package org.example.Servicio;
 
 import org.example.Model.Alumno;
-import org.example.Model.Profesor;
 import org.example.Util.DatabaseConection.ConexionDB;
 import org.example.interfaces.CrudRepositorioAlumno;
 import org.example.interfaces.OrderSuperior;
-
 import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -104,7 +102,6 @@ public class AlumnoImpl implements CrudRepositorioAlumno, OrderSuperior {
     @Override
     public void crear(Alumno t) {
         ProfesorImpl profesor = new ProfesorImpl();
-
         PreparedStatement statement = null;
         try {
             String sql = "INSERT INTO alumnos (id,nombre,matricula,apellidos,correo,telefonoCasa,telefonoCelular,fechaNacimiento,anioIngreso,carrera,tutor_id) "

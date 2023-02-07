@@ -3,13 +3,15 @@ package org.example.Servicio;
 import org.example.Model.Profesor;
 import org.example.Util.DatabaseConection.ConexionDB;
 import org.example.interfaces.CrudRepositorioProfesor;
+import org.example.interfaces.LimitProfesor;
 import org.example.interfaces.OrderSuperior;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.stream.Collectors;
 
-public class ProfesorImpl implements CrudRepositorioProfesor, OrderSuperior {
+public class ProfesorImpl implements CrudRepositorioProfesor, LimitProfesor {
     public ProfesorImpl(){}
     @Override
     public List<Profesor> listar() {
@@ -119,6 +121,11 @@ public class ProfesorImpl implements CrudRepositorioProfesor, OrderSuperior {
     }
 
     @Override
+    public boolean exist(String id) {
+        return porId(id).getId() != null;
+    }
+
+    @Override
     public void imprimirLista() {
        listar().forEach(System.out::println);
     }
@@ -126,5 +133,10 @@ public class ProfesorImpl implements CrudRepositorioProfesor, OrderSuperior {
     @Override
     public long contar() {
         return listar().stream().count();
+    }
+
+    @Override
+    public List<Profesor> limit(Integer limit) {
+        return listar().stream().limit(limit).collect(Collectors.toList());
     }
 }

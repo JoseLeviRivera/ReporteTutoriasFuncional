@@ -6,7 +6,7 @@ import java.util.List;
 public interface CrudRepositorioTutorias {
     List<Tutoria> listar();
     Tutoria porId(Integer id);
-    void crear(Tutoria t);
-    void editar(Tutoria t);
+    boolean crear(Tutoria t);
+    boolean editar(Tutoria t);
     boolean eliminar(Integer id);
 }
