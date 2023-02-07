@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.Model.Alumno;
+import org.example.ScannerModels.ScannerAlumno;
 import org.example.Servicio.AlumnoImpl;
 import org.example.Util.AlumnoIdGeneration.AlumnoIdGeneration;
 import org.example.Util.DatabaseConection.ConexionDB;
@@ -11,15 +12,18 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Connection connection = ConexionDB.getInstance().getConnection();
+        ScannerAlumno scannerAlumno = new ScannerAlumno();
+        scannerAlumno.iniciar();
+        /*Connection connection = ConexionDB.getInstance().getConnection();
         if(connection != null){
             System.out.println("Se establecio la conexion a la base de datos");
-        }
-        AlumnoImpl alumno = new AlumnoImpl(connection);
-        String id = AlumnoIdGeneration.generateIdAlumno("19010050","2019");
-        Alumno alumno1 = new Alumno(id,"19010050","Marcos","Garcia Paez","marcos@gmail.com","2818724542","2811005313","2001","2019","computacion","AM2002");
+        }*/
+        /*AlumnoImpl alumno = new AlumnoImpl(connection);
+        String id = AlumnoIdGeneration.generateIdAlumno("19010055","2019");
+        Alumno alumno1 = new Alumno(id,"19010055","Marcos","Garcia Paez","marcos@gmail.com","2818724542","2811005313","2001","2019","computacion",null);
+        Alumno alumno2 = new Alumno();
 
-        alumno.crear(alumno1);
+        alumno.crear(alumno1);*/
         /*
         alumno.eliminar("1901005519");
         alumno.editar(alumno1);

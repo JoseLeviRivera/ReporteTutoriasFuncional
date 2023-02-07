@@ -103,11 +103,17 @@ public class AlumnoImpl implements CrudRepositorioAlumno, OrderSuperior {
 
     @Override
     public void crear(Alumno t) {
+        ProfesorImpl profesor = new ProfesorImpl();
+
         PreparedStatement statement = null;
         try {
             String sql = "INSERT INTO alumnos (id,nombre,matricula,apellidos,correo,telefonoCasa,telefonoCelular,fechaNacimiento,anioIngreso,carrera,tutor_id) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            if (!existe(t.getId())) {
+            if (existe(t.getId())) {
+                System.out.println("Ya se encuentra registrado un alumno con la misma matrícula");
+            }else if (t.getTutorId().compareTo(null) == 0){
+                System.out.println("");
+            }else {
                 statement = this.connection.prepareStatement(sql);
                 statement.setString(1, t.getId());
                 statement.setString(2, t.getNombre());
@@ -122,8 +128,6 @@ public class AlumnoImpl implements CrudRepositorioAlumno, OrderSuperior {
                 statement.setString(11, t.getTutorId());
                 int rowsAffected = statement.executeUpdate();
                 System.out.println("Rows affected: " + rowsAffected);
-            }else {
-                System.out.println("Ya se encuentra registrado un alumno con la misma matrícula");
             }
         } catch (SQLException se) {
             se.printStackTrace();
