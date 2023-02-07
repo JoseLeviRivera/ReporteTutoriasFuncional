@@ -9,4 +9,5 @@ public interface CrudRepositorioProfesor {
     void crear(Profesor t);
     void editar(Profesor t);
     boolean eliminar(String id);
+    boolean exist(String id);
 }
