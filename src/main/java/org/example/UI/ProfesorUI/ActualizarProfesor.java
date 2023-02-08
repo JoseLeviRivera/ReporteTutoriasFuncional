@@ -1,6 +1,8 @@
 package org.example.UI.ProfesorUI;
 
 import org.example.Model.Profesor;
+import org.example.Respositorios.RespositorioProfesor;
+import org.example.SuperFuncion.SuperFuncion;
 
 import javax.swing.*;
 
@@ -145,6 +147,12 @@ public class ActualizarProfesor extends javax.swing.JInternalFrame {
         if(validarCampos()){
             Profesor profesor = new Profesor(id,nombre, apellidos, correo, fechaIngreso, gradoAcademico,adscripcion);
             limpiarCajaTextos();
+            Boolean status = SuperFuncion.actualizar(new RespositorioProfesor(), profesor);
+            if(status){
+                JOptionPane.showMessageDialog(null, "Se actualizo correctamente al profesor");
+            }else {
+                JOptionPane.showMessageDialog(null, "No se actualizo al profesor");
+            }
             //Todo Agregar la actualizacion a la base de datos
             //Todo Lanzar a la ventana donde se muestra la tabla de todo los profesores
         }else {

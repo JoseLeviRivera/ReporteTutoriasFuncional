@@ -1,6 +1,15 @@
 package org.example.UI.AlumnoUI;
 
+import org.example.Model.Alumno;
+import org.example.Model.Tutor;
+import org.example.Respositorios.RepositorioAlumno;
+import org.example.SuperFuncion.SuperFuncion;
+import org.example.Util.AlumnoIdGeneration.AlumnoIdGeneration;
+import org.example.Util.Listar.ListsContainer;
+
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ActualizarAlumno extends javax.swing.JInternalFrame {
 
@@ -16,21 +25,18 @@ public class ActualizarAlumno extends javax.swing.JInternalFrame {
     private String anioIngreso;
     private String carrera;
     private String tutorId;
+    String carreras[] = {"Ingenieria en computacion", "Zootecnia", "Ingenieria Agricola"};
+
 
     /**
      * Creates new form RegistrarAlumno
      */
     public ActualizarAlumno() {
         initComponents();
+        agregarItemCarrera(carreras);
+        agregarItemTutor(obtenerListaItem(ListsContainer.obtenerListaTutores()));
     }
 
-
-    public void agregarItemCarrera(String s[]){
-        for(String x: s){
-            boxCarrera.addItem(x);
-        }
-        //String dat = boxCarrera.getSelectedItem().toString();
-    }
 
     public void agregarItemTutor(String item[]){
         for(String s: item){
@@ -56,6 +62,26 @@ public class ActualizarAlumno extends javax.swing.JInternalFrame {
         return  !id.isEmpty() && !nombre.isEmpty() && !apellidos.isEmpty() && !correo.isEmpty() && !matricula.isEmpty()
                 && !telefonoCasa.isEmpty() && !telefonoCelular.isEmpty() && !fechaNacimiento.isEmpty()
                 && !anioIngreso.isEmpty() && !carrera.isEmpty() && !tutorId.isEmpty();
+    }
+
+    public List<String> obtenerListaItem(List<Tutor> p){
+        List<String> lista = new ArrayList<>();
+        for (Tutor t: p ) {
+            lista.add(t.getId());
+        }
+        return lista;
+    }
+
+    public void agregarItemCarrera(String s[]){
+        for(String x: s){
+            boxCarrera.addItem(x);
+        }
+    }
+
+    public void agregarItemTutor (List<String> t){
+        for(String s: t){
+            boxTutor.addItem(s);
+        }
     }
 
     /**
@@ -235,8 +261,23 @@ public class ActualizarAlumno extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         cargarDatosCajaTexto();
         if(validarCamposVacios()){
-            //Todo: Agregar el registro a la base de datos
-            JOptionPane.showMessageDialog(null, "Se agrego correctamente los datos");
+            Alumno alumno = new Alumno();
+            alumno.setNombre(nombre);
+            alumno.setApellidos(apellidos);
+            alumno.setCorreo(correo);
+            alumno.setMatricula(matricula);
+            alumno.setTelefonoCelular(telefonoCelular);
+            alumno.setTelefonoCasa(telefonoCasa);
+            alumno.setFechaNacimiento(fechaNacimiento);
+            alumno.setAnioIngreso(anioIngreso);
+            alumno.setCarrera(carrera);
+            alumno.setTutorId(tutorId);
+            alumno.setId(AlumnoIdGeneration.generateIdAlumno(matricula,anioIngreso));
+            if(SuperFuncion.actualizar(new RepositorioAlumno(), alumno)){
+                JOptionPane.showMessageDialog(null, "Se actualizo al Alumno");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se actualizo al alumno");
+            }
         }else {
             JOptionPane.showMessageDialog(null, "Hay datos vacios en el formulario");
         }

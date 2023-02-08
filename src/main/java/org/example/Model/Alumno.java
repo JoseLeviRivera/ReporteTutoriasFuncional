@@ -128,4 +128,21 @@ public class Alumno {
     public void setTutorId(String tutorId) {
         this.tutorId = tutorId;
     }
+
+    @Override
+    public String toString() {
+        return "Alumno{" +
+                "id='" + id + '\'' +
+                ", matricula='" + matricula + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellidos='" + apellidos + '\'' +
+                ", correo='" + correo + '\'' +
+                ", telefonoCasa='" + telefonoCasa + '\'' +
+                ", telefonoCelular='" + telefonoCelular + '\'' +
+                ", fechaNacimiento='" + fechaNacimiento + '\'' +
+                ", anioIngreso='" + anioIngreso + '\'' +
+                ", carrera='" + carrera + '\'' +
+                ", tutorId='" + tutorId + '\'' +
+                '}';
+    }
 }

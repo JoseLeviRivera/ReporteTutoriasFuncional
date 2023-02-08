@@ -1,13 +1,15 @@
 package org.example.ScannerModels;
 
 import org.example.Model.Profesor;
-import org.example.Servicio.ProfesorImpl;
+import org.example.Respositorios.RespositorioProfesor;
+import org.example.SuperFuncion.SuperFuncion;
 import org.example.Util.ProfesorIdGeneration.ProfesorIdGeneration;
 
 import java.util.Scanner;
 
 public class ScannerProfesor {
     public void iniciar(){
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Datos profesor");
         System.out.println("Nombre : ");
@@ -23,9 +25,6 @@ public class ScannerProfesor {
         System.out.println("adscripcion: ");
         String adsc = scanner.nextLine();
         String id = ProfesorIdGeneration.generateIdProfesor(nombre, anio);
-        ProfesorImpl impl = new ProfesorImpl();
-        impl.crear(new Profesor(id,nombre, apellidos,correo, anio, grado, adsc));
-        impl.imprimirLista();
-        System.out.println();
+        SuperFuncion.crear(new RespositorioProfesor(), new Profesor(id,nombre, apellidos,correo, anio, grado, adsc));
     }
 }

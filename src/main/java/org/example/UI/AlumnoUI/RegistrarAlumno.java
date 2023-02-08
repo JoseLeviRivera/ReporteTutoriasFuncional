@@ -1,10 +1,19 @@
 package org.example.UI.AlumnoUI;
 
+import org.example.Model.Alumno;
+import org.example.Model.Profesor;
+import org.example.Model.Tutor;
+import org.example.Respositorios.RepositorioAlumno;
+import org.example.SuperFuncion.SuperFuncion;
+import org.example.Util.AlumnoIdGeneration.AlumnoIdGeneration;
+import org.example.Util.Listar.ListsContainer;
+
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegistrarAlumno extends javax.swing.JInternalFrame {
     String carreras[] = {"Ingenieria en computacion", "Zootecnia", "Ingenieria Agricola"};
-    String tutores[] = {"Domingo", "Nancy", "Ariel", "Fabian", "Rafael"};
 
     private String id;
     private String matricula;
@@ -24,19 +33,25 @@ public class RegistrarAlumno extends javax.swing.JInternalFrame {
     public RegistrarAlumno() {
         initComponents();
         agregarItemCarrera(carreras);
-        agregarItemTutor(tutores);
+        agregarItemTutor(obtenerListaItem(ListsContainer.obtenerListaTutores()));
+    }
+
+    public List<String> obtenerListaItem(List<Tutor> p){
+        List<String> lista = new ArrayList<>();
+        for (Tutor t: p ) {
+            lista.add(t.getId());
+        }
+        return lista;
     }
 
     public void agregarItemCarrera(String s[]){
-
         for(String x: s){
             boxCarrera.addItem(x);
         }
-        //String dat = boxCarrera.getSelectedItem().toString();
     }
 
-    public void agregarItemTutor(String item[]){
-        for(String s: item){
+    public void agregarItemTutor (List<String> t){
+        for(String s: t){
             boxTutor.addItem(s);
         }
     }
@@ -236,8 +251,23 @@ public class RegistrarAlumno extends javax.swing.JInternalFrame {
         cargarDatosCajaTexto();
         if(validarCamposVacios()){
             //Todo Agregar el registro a la base de datos
-            JOptionPane.showMessageDialog(null, "Se agrego correctamente los datos");
-
+            Alumno alumno = new Alumno();
+            alumno.setNombre(nombre);
+            alumno.setApellidos(apellidos);
+            alumno.setCorreo(correo);
+            alumno.setMatricula(matricula);
+            alumno.setTelefonoCelular(telefonoCelular);
+            alumno.setTelefonoCasa(telefonoCasa);
+            alumno.setFechaNacimiento(fechaNacimiento);
+            alumno.setAnioIngreso(anioIngreso);
+            alumno.setCarrera(carrera);
+            alumno.setTutorId(tutorId);
+            alumno.setId(AlumnoIdGeneration.generateIdAlumno(matricula,anioIngreso));
+            if(SuperFuncion.crear(new RepositorioAlumno(), alumno)){
+                JOptionPane.showMessageDialog(null, "Se Registro al Alumno");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se registro al alumno");
+            }
         }else {
             JOptionPane.showMessageDialog(null, "Hay datos vacios en el formulario");
         }
