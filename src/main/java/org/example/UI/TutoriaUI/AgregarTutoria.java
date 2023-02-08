@@ -1,6 +1,15 @@
 package org.example.UI.TutoriaUI;
 
+import org.example.Model.Alumno;
+import org.example.Model.Tutor;
+import org.example.Model.Tutoria;
+import org.example.Respositorios.RepositorioTutoria;
+import org.example.SuperFuncion.SuperFuncion;
+import org.example.Util.Listar.ListsContainer;
+
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AgregarTutoria extends javax.swing.JInternalFrame {
     private String hora;
@@ -15,6 +24,7 @@ public class AgregarTutoria extends javax.swing.JInternalFrame {
      */
     public AgregarTutoria() {
         initComponents();
+        agregarItemsIdAlumno(obtenerListaItem(ListsContainer.obtenerListaAlumnos()));
     }
 
     /**
@@ -133,12 +143,30 @@ public class AgregarTutoria extends javax.swing.JInternalFrame {
         return !hora.isEmpty() && !fecha.isEmpty() && !duracion.isEmpty() && !comentarios.isEmpty() && !idAlumno.isEmpty();
     }
 
+    public List<String> obtenerListaItem(List<Alumno> p){
+        List<String> lista = new ArrayList<>();
+        for (Alumno t: p ) {
+            lista.add(t.getId());
+        }
+        return lista;
+    }
+
+    public void agregarItemsIdAlumno(List<String> items){
+        for(String s: items){
+            this.boxAlumno.addItem(s.toString());
+        }
+    }
+
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
         cargarDatos();
         if(validarDatos()){
             //Todo: Agregar a la base de datos
-            JOptionPane.showMessageDialog(null, "Se ingreso correctamente");
+            if(SuperFuncion.crear(new RepositorioTutoria(), new Tutoria(hora, fecha, duracion, comentarios, idAlumno))) {
+                JOptionPane.showMessageDialog(null, "Se registro correctamente la tutoria");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se registro la tutoria");
+            }
         }else {
             JOptionPane.showMessageDialog(null, "Hay datos vacios en el formulario");
         }

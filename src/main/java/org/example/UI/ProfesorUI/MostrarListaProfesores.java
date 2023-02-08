@@ -1,10 +1,12 @@
 package org.example.UI.ProfesorUI;
 
 import org.example.Model.Profesor;
+import org.example.Util.Listar.ListsContainer;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MostrarListaProfesores extends javax.swing.JInternalFrame {
 
@@ -19,7 +21,7 @@ public class MostrarListaProfesores extends javax.swing.JInternalFrame {
         initComponents();
         modelo.setColumnIdentifiers(encabezados);
         this.jTable1.setModel(modelo);
-        llenarTabla(listar());
+        llenarTabla(ListsContainer.obtenerListaProfesores());
     }
 
     public void llenarTabla(List<Profesor> profesores){
@@ -32,21 +34,28 @@ public class MostrarListaProfesores extends javax.swing.JInternalFrame {
         }
     }
 
+    public List<Profesor> profesorList(List<Object> lista){
+        return  lista.stream().filter(objecto -> objecto instanceof  Profesor)
+                .map(objecto -> (Profesor) objecto).collect(Collectors.toList());
+    }
+
+    public List<Profesor> obtenerListaProfesores(List<Object> listaObject){
+        List<Profesor> listaProfesores = new ArrayList<Profesor>();
+        for (Object objeto : listaObject) {
+            if (objeto instanceof Profesor) {
+                listaProfesores.add((Profesor) objeto);
+            }
+        }
+        return listaProfesores;
+    }
+
     public void limpiarTabla(){
         modelo = new DefaultTableModel();
         modelo.setColumnIdentifiers(encabezados);
         this.jTable1.setModel(modelo);
     }
 
-    public List<Profesor> listar(){
-        List<Profesor> p = new ArrayList();
-        p.add(new Profesor("b", "c", "d", "e", "f", "g"));
-        p.add(new Profesor("b", "c", "d", "e", "f", "g"));
-        p.add(new Profesor("ab", "c", "d", "e", "f", "g"));
-        p.add(new Profesor("ab", "c", "d", "e", "f", "g"));
-        p.add(new Profesor("ab", "c", "d", "e", "f", "g"));
-        return p;
-    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.

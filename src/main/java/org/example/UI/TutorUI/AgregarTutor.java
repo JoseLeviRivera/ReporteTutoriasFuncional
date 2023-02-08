@@ -1,5 +1,12 @@
 package org.example.UI.TutorUI;
 
+import org.example.Model.Tutor;
+import org.example.Respositorios.RepositorioTutor;
+import org.example.SuperFuncion.SuperFuncion;
+import org.example.Util.RandomGeneration.RandomPassword;
+
+import javax.swing.*;
+
 public class AgregarTutor extends javax.swing.JInternalFrame {
 
     /**
@@ -19,69 +26,73 @@ public class AgregarTutor extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
+        txtIdTutor = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("Registro Tutor");
+        setTitle("Agregar Tutor");
 
-        jLabel1.setText("Ingresa el Id del profesor");
-
-        jLabel2.setText("Tu contraseña");
-
-        jCheckBox1.setText("Guarda la contraseña");
+        jLabel1.setText("Ingrese el id como profesor");
 
         jButton1.setText("Registrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
+                                .addGap(25, 25, 25)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jCheckBox1)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jLabel2)
-                                                .addComponent(jLabel1)
-                                                .addComponent(jTextField1)
-                                                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE))
-                                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(56, Short.MAX_VALUE))
+                                        .addComponent(jLabel1)
+                                        .addComponent(txtIdTutor, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addGap(29, 29, 29)
+                                .addContainerGap()
                                 .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton1)
-                                .addContainerGap(43, Short.MAX_VALUE))
+                                .addComponent(txtIdTutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        //Todo hacer Click en en el boton de Registrar Tutor
+        Tutor tutor = new Tutor();
+        String identificador = txtIdTutor.getText();
+        if(!identificador.isEmpty()) {
+            if(!SuperFuncion.existe(new RepositorioTutor(), identificador)){
+                tutor.setId(identificador);
+                tutor.setPassword(RandomPassword.generatePassword(10));
+                if(SuperFuncion.crear(new RepositorioTutor(), tutor)){
+                    JOptionPane.showMessageDialog(null, "Se creo el tutor correctamente");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se creo el tutor");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Ya existe Tutor");
+            }
+        }
+    }
+
 
     // Variables declaration - do not modify
     private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField txtIdTutor;
     // End of variables declaration
 }
 

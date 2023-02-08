@@ -1,6 +1,7 @@
 package org.example.UI.AlumnoUI;
 
 import org.example.Model.Alumno;
+import org.example.Util.Listar.ListsContainer;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
@@ -20,8 +21,7 @@ public class MostrarListaAlumnos extends javax.swing.JInternalFrame {
         initComponents();
         modelo.setColumnIdentifiers(encabezados);
         this.jTable1.setModel(modelo);
-        //llenarTabla(listar());
-        cargarDatosTabla(generarListaAlumnos());
+        cargarDatosTabla(ListsContainer.obtenerListaAlumnos());
     }
 
     public void cargarDatosTabla(List<Alumno> alumnos){

@@ -1,16 +1,21 @@
 package org.example.UI;
 
+import org.example.Respositorios.RepositorioAlumno;
+import org.example.Respositorios.RepositorioTutor;
+import org.example.Respositorios.RepositorioTutoria;
+import org.example.SuperFuncion.SuperFuncion;
 import org.example.UI.AlumnoUI.ActualizarAlumno;
 import org.example.UI.AlumnoUI.MostrarListaAlumnos;
 import org.example.UI.AlumnoUI.RegistrarAlumno;
 import org.example.UI.ProfesorUI.ActualizarProfesor;
 import org.example.UI.ProfesorUI.AgregarProfesor;
 import org.example.UI.ProfesorUI.MostrarListaProfesores;
-import org.example.UI.TutorUI.AccederTutor;
 import org.example.UI.TutorUI.AgregarTutor;
+import org.example.UI.TutorUI.MostrarTutores;
 import org.example.UI.TutoriaUI.ActualizarTutoria;
 import org.example.UI.TutoriaUI.AgregarTutoria;
 import org.example.UI.TutoriaUI.MostrarListaTutoria;
+
 import javax.swing.*;
 
 public class Root extends javax.swing.JFrame {
@@ -42,6 +47,7 @@ public class Root extends javax.swing.JFrame {
         jMenu8 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem19 = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem17 = new javax.swing.JMenuItem();
@@ -123,7 +129,7 @@ public class Root extends javax.swing.JFrame {
         jMenu8.setText("Tutor");
 
         jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
-        jMenuItem5.setText("Registrar Como Tutor");
+        jMenuItem5.setText("Registrar");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem5ActionPerformed(evt);
@@ -132,13 +138,22 @@ public class Root extends javax.swing.JFrame {
         jMenu8.add(jMenuItem5);
 
         jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
-        jMenuItem6.setText("Iniciar Como Tutor");
+        jMenuItem6.setText("MostrarTutores");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem6ActionPerformed(evt);
             }
         });
         jMenu8.add(jMenuItem6);
+
+        jMenuItem19.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
+        jMenuItem19.setText("Eliminar");
+        jMenuItem19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem19ActionPerformed(evt);
+            }
+        });
+        jMenu8.add(jMenuItem19);
 
         jMenu1.add(jMenu8);
         jMenu1.add(jSeparator4);
@@ -325,10 +340,9 @@ public class Root extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {
         System.out.println("Registrar como tutor");
-        AgregarTutor tutor = new AgregarTutor();
-        Escritorio.add(tutor);
-        tutor.show();
-
+        AgregarTutor m = new AgregarTutor();
+        Escritorio.add(m);
+        m.show();
     }
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -360,9 +374,12 @@ public class Root extends javax.swing.JFrame {
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        AccederTutor l = new AccederTutor();
-        Escritorio.add(l);
-        l.show();
+
+        //Todo: Tabla para mostrar Los Tutores
+        MostrarTutores mso = new MostrarTutores();
+        Escritorio.add(mso);
+        mso.show();
+
     }
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -392,6 +409,11 @@ public class Root extends javax.swing.JFrame {
             String id = identificador.getText();
             System.out.println("Identificador del alumno ingresado es: " + id);
             //Todo eliminar alumno
+            if(SuperFuncion.eliminar(new RepositorioAlumno(), id)){
+                JOptionPane.showMessageDialog(null, "Se Elimino correctamente al alumno");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se elimino al alumno");
+            }
         }
     }
 
@@ -422,6 +444,11 @@ public class Root extends javax.swing.JFrame {
             String id = identificador.getText();
             System.out.println("Identificador del Tutoria ingresado es: " + id);
             //Todo eliminar Tutoria
+            if(SuperFuncion.eliminar(new RepositorioTutoria(), id)){
+                JOptionPane.showMessageDialog(null, "Se elimino correctamente la tutoria");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se elimino a la tutoria");
+            }
         }
 
     }
@@ -431,6 +458,30 @@ public class Root extends javax.swing.JFrame {
         MostrarListaTutoria t = new MostrarListaTutoria();
         Escritorio.add(t);
         t.show();
+    }
+
+    private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+
+        //Todo: Eliminar a un Tutor AQUI
+
+        JTextField identificador = new JTextField();
+        Object [] mensaje = {
+                "Identificador: ", identificador
+        };
+
+        int opcion = JOptionPane.showConfirmDialog(this, mensaje,
+                "Eliminar Tutor", JOptionPane.OK_CANCEL_OPTION);
+        if (opcion == JOptionPane.OK_OPTION && !identificador.getText().isEmpty()) {
+            String id = identificador.getText();
+            System.out.println("Identificador del Tutor ingresado es: " + id);
+            //Todo eliminar Tutoria
+            if(SuperFuncion.eliminar(new RepositorioTutor(), id)){
+                JOptionPane.showMessageDialog(null, "Se Elimino correctamente al tutor");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se elimino al tutor");
+            }
+        }
     }
 
     /**
@@ -490,6 +541,7 @@ public class Root extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem18;
+    private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

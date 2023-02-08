@@ -1,10 +1,14 @@
 package org.example.UI.TutoriaUI;
 
+import org.example.Model.Tutoria;
+import org.example.Util.Listar.ListsContainer;
+
 import javax.swing.table.DefaultTableModel;
+import java.util.List;
 
 public class MostrarListaTutoria extends javax.swing.JInternalFrame {
 
-    private String encabezados[] = {"Fecha", "Hora", "Duracion", "Comentarios", "Alumno Id"};
+    private String encabezados[] = {"Id", "Fecha", "Hora", "Duracion", "Comentarios", "Alumno Id"};
     private DefaultTableModel modelo = new DefaultTableModel();
 
 
@@ -15,11 +19,16 @@ public class MostrarListaTutoria extends javax.swing.JInternalFrame {
         initComponents();
         modelo.setColumnIdentifiers(encabezados);
         this.jTable1.setModel(modelo);
+        cargarDatosTabla(ListsContainer.obtenerListaTutorias());
 
     }
 
-    public void cargarDatosTabla(){
-
+    public void cargarDatosTabla(List<Tutoria> lista){
+        for (Tutoria t: lista){
+            modelo.addRow(new Object[]{
+                    t.getId(),t.getFecha(), t.getHora(), t.getDuracion(), t.getComentarios(),t.getAlumno_id()
+            });
+        }
     }
 
     /*

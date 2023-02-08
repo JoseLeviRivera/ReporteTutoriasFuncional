@@ -1,6 +1,9 @@
 package org.example.UI.ProfesorUI;
 
 import org.example.Model.Profesor;
+import org.example.Respositorios.RespositorioProfesor;
+import org.example.SuperFuncion.SuperFuncion;
+import org.example.Util.ProfesorIdGeneration.ProfesorIdGeneration;
 
 import javax.swing.*;
 
@@ -187,10 +190,18 @@ public class AgregarProfesor extends javax.swing.JInternalFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {
         cargarDatosFormulario();
         if(validarCamposVacios()){
-            Profesor profesor = new Profesor(nombre, apellidos, correo, fechaIngreso, gradoAcademico,adscripcion);
+            //Profesor profesor = new Profesor(nombre, apellidos, correo, fechaIngreso, gradoAcademico,adscripcion);
             limpiarCajasTexto();
+            String id = ProfesorIdGeneration.generateIdProfesor(nombre, fechaIngreso);
+            Profesor profesor = new Profesor(id,nombre, apellidos,correo, fechaIngreso, gradoAcademico, adscripcion);
             //Todo Metodo que va agregar el objeto a la base de datos
-            //Todo muestra la ventana de la tabla donde esta la informacion de la bd
+            System.out.println(profesor);
+            Boolean status = SuperFuncion.crear(new RespositorioProfesor(), profesor);
+            if(status){
+                JOptionPane.showMessageDialog(null, "Se creo el profesor correctamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo crea el profesor correctamente");
+            }
         }else {
             JOptionPane.showMessageDialog(null, "Hay datos vacios en el formulario");
         }
