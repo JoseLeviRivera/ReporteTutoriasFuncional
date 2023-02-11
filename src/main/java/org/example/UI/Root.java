@@ -3,6 +3,7 @@ package org.example.UI;
 import org.example.Respositorios.RepositorioAlumno;
 import org.example.Respositorios.RepositorioTutor;
 import org.example.Respositorios.RepositorioTutoria;
+import org.example.Respositorios.RespositorioProfesor;
 import org.example.SuperFuncion.SuperFuncion;
 import org.example.UI.AlumnoUI.ActualizarAlumno;
 import org.example.UI.AlumnoUI.MostrarListaAlumnos;
@@ -317,6 +318,7 @@ public class Root extends javax.swing.JFrame {
     }
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {
+        //Todo MostrarLista
         System.out.println("Listar!");
         MostrarListaProfesores m = new MostrarListaProfesores();
         Escritorio.add(m);
@@ -335,6 +337,11 @@ public class Root extends javax.swing.JFrame {
             String id = identificador.getText();
             System.out.println("Identificador del profesor ingresado es: " + id);
             //Todo Eliminar Profesor
+            if(SuperFuncion.eliminar(new RespositorioProfesor(), id)){
+                JOptionPane.showMessageDialog(null, "Se Elimino correctamente al Profesor");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se elimino al Profesor");
+            }
         }
     }
 

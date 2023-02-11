@@ -2,7 +2,6 @@ package org.example.UI.AlumnoUI;
 
 import org.example.Model.Alumno;
 import org.example.Model.Profesor;
-import org.example.Model.Tutor;
 import org.example.Respositorios.RepositorioAlumno;
 import org.example.SuperFuncion.SuperFuncion;
 import org.example.Util.AlumnoIdGeneration.AlumnoIdGeneration;
@@ -13,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RegistrarAlumno extends javax.swing.JInternalFrame {
-    String carreras[] = {"Ingenieria en computacion", "Zootecnia", "Ingenieria Agricola"};
+    String carreras[] = {
+            "Ingenieria en computacion",
+            "Zootecnia", "Ingenieria Agricola"};
 
     private String id;
     private String matricula;
@@ -33,12 +34,12 @@ public class RegistrarAlumno extends javax.swing.JInternalFrame {
     public RegistrarAlumno() {
         initComponents();
         agregarItemCarrera(carreras);
-        agregarItemTutor(obtenerListaItem(ListsContainer.obtenerListaTutores()));
+        agregarItemTutor(obtenerListaItem(ListsContainer.obtenerListaProfesoresTutores()));
     }
 
-    public List<String> obtenerListaItem(List<Tutor> p){
+    public List<String> obtenerListaItem(List<Profesor> p){
         List<String> lista = new ArrayList<>();
-        for (Tutor t: p ) {
+        for (Profesor t: p ) {
             lista.add(t.getId());
         }
         return lista;

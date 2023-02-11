@@ -1,5 +1,10 @@
 package org.example.Model;
-
+/**
+ * Esta clase representa un profesor con un id, nombre, apellidos, correo, año de ingreso, grado academico, adscirpcion,
+ *
+ * @author Carlos García & José Levi
+ * @date: ltima actualización: 04 de feb 2023
+ */
 public class Profesor {
     private String id;
     private String nombre;
