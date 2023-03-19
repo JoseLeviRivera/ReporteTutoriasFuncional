@@ -13,7 +13,7 @@ Es importante conocer que se debe de crear la base de datos en MYSQL y modificar
 Para ejecutar el proyecto se puede hacer mediante un ide como IntelligeIDEA o por medio de maven.
 <br>
 1. Ejecuta el siguiente comando para instalar las dependecias:
-<br>
+
 ```
 mvn install
 ```
